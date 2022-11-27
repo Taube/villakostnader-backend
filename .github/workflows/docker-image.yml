@@ -2,27 +2,24 @@ name: Dockerize backend
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches:
+      - "main"
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: main
-
-      - name: Log in to Docker Hub
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build the Docker image
-        run: docker build -f Dockerfile -t getitdone/villakostnader-backend .
-
-      - name: Push the Docker image
-        run: docker push getitdone/villakostnader-backend
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: getitdone/villakostnader-backend:latest

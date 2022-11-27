@@ -21,10 +21,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/villakostnader-backend:latest
+      - name: Build the Docker image
+        run: docker build -f Dockerfile -t getitdone/villakostnader-backend .
+
+      - name: Push the Docker image
+        run: docker push getitdone/villakostnader-backend

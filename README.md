@@ -10,8 +10,8 @@ The backend for learning project "Villakostnader"
 
 ## Run the container
 
-`docker run -p 3000:3000 getitdone/villakostnader-backend`
+`docker run -p 3500:3500 getitdone/villakostnader-backend`
 
-## Push the conatiner
+## Push the container
 
 `docker push getitdone/villakostnader-backend`
